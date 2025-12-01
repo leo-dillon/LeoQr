@@ -1,65 +1,284 @@
-import Image from "next/image";
+"use client"
+import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, errorCorrectionLevels, ExtensionFunction, FileExtension, Mode, modes, Options, TypeNumber } from "qr-code-styling";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 export default function Home() {
+  const DEFAULT_BASE64_IMAGE =
+  "data:image/png;base64,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";
+
+  const [options, setOptions] = useState<Options>({
+    width: 300,
+    height: 300,
+    type: 'svg' as DrawType,
+    data: 'https://portafolio-henna-phi.vercel.app/',
+    image: DEFAULT_BASE64_IMAGE,
+    margin: 10,
+    imageOptions: {
+      hideBackgroundDots: true,
+      imageSize: 0.4,
+      margin: 10,
+      crossOrigin: 'anonymous',
+    },
+    dotsOptions: {
+      color: '#000',
+      type: 'rounded' as DotType
+    },
+    backgroundOptions: {
+      color: '#686868',
+    },
+    cornersSquareOptions: {
+      color: '#000',
+      type: 'extra-rounded' as CornerSquareType,
+    },
+    cornersDotOptions: {
+      color: '#000',
+      type: 'dot' as CornerDotType,
+    }
+  });
+  const [fileExt, setFileExt]   = useState<FileExtension>("svg");
+  const [ imgSelect, setImgSelect ] = useState<string | null>(null)
+  const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
+  const [ loading, setLoading ] = useState<boolean>(false)
+  const refa = useRef<HTMLDivElement>(null);
+  const inputFile = useRef<HTMLInputElement>(null)
+  const timeRef = useRef<number | null>(null)
+  useEffect(() => {
+    if (refa.current) {
+      qrCode.append(refa.current);
+    }
+  }, [qrCode, refa]);
+
+  useEffect(() => {
+    if (!qrCode) return;
+    qrCode.update(options);
+    
+  }, [qrCode, options]);
+
+
+  const fileToBase64 = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+  const editForm = async ( e: FormEvent<HTMLFormElement> ) => {
+    e.preventDefault()
+    setLoading(true)
+    if( timeRef.current ) clearTimeout(timeRef.current)
+    timeRef.current = window.setTimeout( () => {  
+      setLoading(false)
+    }, 700)
+    const newData = new FormData(e.currentTarget)
+
+    const url         = newData.get('url') as string | null
+    let   ancho       = newData.get('width') as number | null
+    let   alto        = newData.get('heigth') as number | null
+    let   margen      = newData.get('margin') as number | null 
+    const imagenContenedor = newData.get('image') as File
+    const imagen = ( imgSelect == null ) ? DEFAULT_BASE64_IMAGE : ( imagenContenedor.size < 3 ) ? "" : await fileToBase64(imagenContenedor) 
+    let   tamañoIMG   = newData.get('img_size') as number | null
+    let   margenIMG   = newData.get('img_margen') as number | null
+    let color_a   = newData.get('color_a') as string | null
+    let color_b   = newData.get('color_b') as string | null
+    let color_c   = newData.get('color_c') as string | null
+    let color_d   = newData.get('color_d') as string | null
+
+    if( ancho == null || ancho > 400 || ancho < 100 ) ancho = 300
+    if( alto == null || alto > 400 || alto < 100 ) alto = 300
+    if( margen == null || margen > 50 || margen < 0 ) margen = 20
+    if( tamañoIMG == null || tamañoIMG < 0 || tamañoIMG > 100 ) tamañoIMG = 40 
+    if( margenIMG == null || margenIMG < 0 || margenIMG > 40 ) margenIMG = 10 
+    if( color_a == null ) color_a = "#000"
+    if( color_b == null ) color_b = "#686868"
+    if( color_c == null ) color_c = "#000"
+    if( color_d == null ) color_d = "#000"
+    
+    setOptions(options => ({
+      ...options,
+      width:  ( ancho == null   ) ? 300 : ancho,
+      height: ( alto == null    ) ? 300 : alto,
+      data:   ( url == null     ) ? "http://localhost:3000/" : url,
+      margin: ( margen == null  ) ? 10 : margen,
+      image:  imagen,
+      imageOptions: {
+        hideBackgroundDots: true,
+        imageSize: ( tamañoIMG < 11 ) ? 0.1 : tamañoIMG / 100 ,
+        margin: margenIMG,
+        crossOrigin: 'anonymous',
+      },
+      dotsOptions: {
+        color: color_a,
+        type: 'rounded' as DotType
+      },
+      backgroundOptions: {
+        color: color_b,
+      },
+      cornersSquareOptions: {
+        color: color_c,
+        type: 'extra-rounded' as CornerSquareType,
+      },
+      cornersDotOptions: {
+        color: color_d,
+        type: 'dot' as CornerDotType,
+      }
+
+    }));
+  }
+  const clearImg = () => {
+    setOptions( options => ({
+      ...options,
+      image: ""
+    }))
+    if( inputFile.current ){
+      inputFile.current.value = ""
+    }
+  }
+
+  const inputFileTarget = () => {
+    document.getElementById("image")?.click()
+  }
+
+  const onExtensionChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setFileExt(event.target.value as FileExtension  );
+  };
+
+  const onDownloadClick = () => {
+    if (!qrCode) return;
+    qrCode.download({
+      extension: fileExt
+    });
+  };
+
   return (
-    <div className="">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            { process.env.SUPABASE_URL  }
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <section className="w-full max-w-[1000px] mx-auto flex flex-col justify-start">
+
+      <div className="flex flex-col md:flex-row gap-4">
+        <form onChange={ (e) => editForm(e) } 
+          className="aparecer-3 relative mx-2 md:mx-none grow px-3 sm:px-8 py-4 bg-zinc-950/60 border border-stone-300/30 shadow-[0px_0px_120px] shadow-white/20 rounded-xl flex flex-col gap-3 z-3">
+          <div>
+            <h2 className="w-fit text-4xl text-stone-200 border-b"> Genera tu QR </h2>
+            <small className="opacity-40 text-stone-200"> Crea tus QR en pocos segundos </small>
+          </div>
+          {/*  Editar URL  */}
+          <div className="flex flex-col gap-1 group">
+            <label htmlFor="url" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Ingresa la URL </label>
+            <textarea name="url" id="url" defaultValue={options.data} 
+              className="resize-none line-clamp-2 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+          <div className="flex flex-row flex-wrap justify-between gap-5">
+            {/*  Editar Ancho  */}
+            <div className="grow flex flex-col gap-1 group">
+              <label htmlFor="width" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Ancho </label>
+              <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={400} defaultValue={300} name="width" id="width" type="number"/>
+            </div>
+            {/*  Editar Alto  */}
+            <div className="grow flex flex-col gap-1 group">
+              <label htmlFor="heigth" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Alto </label>
+              <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={400} defaultValue={300} name="heigth" id="heigth" type="number"/>
+            </div>
+            {/*  Editar Margen  */}
+            <div className="grow flex flex-col gap-1 group">
+              <label htmlFor="margin" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Margen </label>
+              <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={50} defaultValue={10} name="margin" id="margin" type="number"/>
+            </div>
+          </div>
+          {/*  Editar Imagen  */}
+          <div className="relative my-2 sm:my-0 grow flex flex-col gap-1 group">
+            <label htmlFor="image" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Imagen </label>
+            <input className="hidden" name="image" id="image" type="file" accept="image/png, image/jpeg, image/jpg, image/svg+xml"
+              ref={inputFile}
+              onChange={e =>  setImgSelect(e.target.value)} 
+            />
+          
+            <button 
+              type="button" 
+              className={`${imgSelect == "" ? "hidden": "block"} absolute -top-1 sm:top-0 right-0 px-2 border border-slate-500 rounded-full text-sm sm:text-[12px] cursor-pointer hover:scale-110`} 
+              onClick={() => { setImgSelect(""); clearImg()  }}
+              title="Quitar imagen"
+            > 
+              Quitar imagen
+            </button>
+            
+            <span className="block w-full overflow-x-hidden px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300"
+              onClick={() => inputFileTarget()  }
+            > 
+              { imgSelect == null || imgSelect.length < 1  ? "Seleccione una imagen" : imgSelect }
+            </span> 
+          </div>
+          {
+            imgSelect != "" && <div>
+              <span className="opacity-90 text-sm duration-300"> Editar imagen </span>
+              <div className="flex justify-between gap-5">
+                {/*  Editar tamaño Imagen  */}
+                <div className="grow flex flex-col gap-1 group">
+                  <label htmlFor="img_size" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Tamaño </label>
+                  <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={100} defaultValue={40} name="img_size" id="img_size" type="number"/>
+                </div>
+                {/*  Editar margen Imagen  */}
+                <div className="grow flex flex-col gap-1 group">
+                  <label htmlFor="img_margen" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Margen </label>
+                  <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={40} defaultValue={10} name="img_margen" id="img_margen" type="number"/>
+                </div>
+              </div>
+            </div> 
+          }
+          {/*  Editar Color  */}
+          <div>
+            <span className="opacity-90 text-sm duration-300"> Editar color </span>
+            <div className="flex flex-wrap justify-between gap-5">
+              <div className="min-w-[75px] max-w-[120px] flex-1 flex flex-col gap-1 group">
+                <label htmlFor="color_a" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Patron </label>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_a" id="color_a" type="color" defaultValue={"#000"}/>
+              </div>
+              <div className="min-w-[75px] max-w-[120px] flex-1 flex flex-col gap-1 group">
+                <label htmlFor="color_b" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Fondo </label>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_b" id="color_b" type="color" defaultValue={"#686868"}/>
+              </div>
+              <div className="min-w-[75px] max-w-[120px] flex-1 flex flex-col gap-1 group">
+                <label htmlFor="color_c" className="opacity-50 text-sm text-nowrap group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Link interno </label>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_c" id="color_c" type="color" defaultValue={"#000"}/>
+              </div>
+              <div className="min-w-[75px] max-w-[120px] flex-1 flex flex-col gap-1 group">
+                <label htmlFor="color_d" className="opacity-50 text-sm text-nowrap group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Link externo</label>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_d" id="color_d" type="color" defaultValue={"#000"}/>
+              </div>
+            </div>
+          </div>
+          <div className="flex md:mt-3 justify-between gap-5">
+            <button 
+              type="button"
+              onClick={onDownloadClick}
+              className="w-full py-2 bg-slate-700 rounded-md cursor-pointer text-2xl group hover:rounded-xl duration-100"  
+            >
+              <span className="opacity-80 group-hover:opacity-100 duration-100"> Descargar </span>
+            </button>
+            <select onChange={onExtensionChange} value={fileExt}
+              className="w-32 px-3 py-2 border border-stone-300/30 bg-slate-800 cursor-pointer rounded-lg"
+            >
+              <option value="svg">SVG</option>
+              <option value="png">PNG</option>
+              <option value="jpeg">JPEG</option>
+              <option value="webp">WEBP</option>
+            </select>
+          </div>
+        </form>
+
+        <div
+          className="
+            flex items-center justify-center
+            relative min-w-[300px] mx-2 px-8 py-6
+            rounded-xl shadow-[0px_0px_120px] shadow-white/20 bg-zinc-950/60
+            aparecer-2
+            hover:bg-zinc-900/60 duration-300
+          "
+        >
+          <span className="absolute top-2 left-8 text-xl opacity-40"> Preview </span>
+          <div ref={refa} id="QR_contain" className={`md:max-w-[400px] max-w-[200px] ${loading ? "hidden" : ""}`}></div>
+          <div className={`bg-stone-600 w-[300px] h-[300px] animate-pulse z-10 ${loading ? "" : "hidden"}`}></div>  
         </div>
-      </main>
-    </div>
+      </div>
+    </section>
   );
 }

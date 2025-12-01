@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layouts/Header";
+import { Footer } from "@/components/layouts/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,11 +25,17 @@ export default function RootLayout({
 {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/faviconLDillon.ico"/>
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col justify-between`}
       >
         <Header />
-        {children}
+        <div className="grow flex justify-center items-center">
+          { children }
+        </div>
+        <Footer />
       </body>
     </html>
   );

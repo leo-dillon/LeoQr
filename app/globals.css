@@ -15,7 +15,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #020618;
     --foreground: #ededed;
   }
 }
@@ -24,4 +24,51 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+.animate-delay-100{
+  animation-delay: 100ms;
+}
+.animate-delay-200{
+  animation-delay: 200ms;
+}
+.animate-delay-300{
+  animation-delay: 300ms;
+}
+
+
+.aparecer{
+  animation: aparecer .1s ease-out forwards;
+}
+.aparecer-1{
+  animation: aparecer .2s ease-in-out forwards;
+}
+.aparecer-2{
+  animation: aparecer .3s ease-in-out forwards;
+}
+.aparecer-3{
+  animation: aparecer .4s ease-in-out forwards;
+}
+@keyframes aparecer {
+  0%{
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  100%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.desaparecer{
+  animation: desaparecer .1s ease-out ;
+}
+@keyframes desaparecer {
+  0%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(-12px);
+    opacity: 0;
+  }
 }
