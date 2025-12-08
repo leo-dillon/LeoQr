@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
+import { ToastProvider } from "@/context/modalContext";
+import { UserProvider } from "@/context/userContex";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +25,7 @@ export default function RootLayout({
     children,
   }: Readonly<{ children: React.ReactNode; }>) 
 {
-  return (
+  return (  
     <html lang="en">
       <head>
         <link rel="icon" href="/faviconLDillon.ico"/>
@@ -31,11 +33,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col justify-between`}
       >
-        <Header />
-        <div className="grow flex justify-center items-center">
-          { children }
-        </div>
-        <Footer />
+      <ToastProvider>
+        <UserProvider>
+              <Header />
+                <div className="flex justify-center items-center">
+                      { children }
+                </div>
+              <Footer />
+        </UserProvider>
+      </ToastProvider>
       </body>
     </html>
   );

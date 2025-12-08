@@ -152,56 +152,116 @@ export default function Home() {
   };
 
   return (
-  <div className="w-full flex flex-col gap-12">
+  <div className="w-full flex flex-col gap-4">
     
-    <section className="w-full py-12 lg:py-24 max-w-9/10 mx-auto flex flex-col lg:flex-row justify-center items-center gap-12 border-b border-blue-700/50 hover:border-blue-700/90 duration-300">
+    <section className="min-h-screen w-full max-w-9/10 mx-auto flex flex-col lg:flex-row justify-center items-center gap-12">
       <div className="flex flex-col justify-between gap-4">
         <div className="flex flex-col items-center md:items-start gap-3">
-          <div className="relative my-3">
-            <h2 className="text-center lg:text-start text-4xl md:text-6xl text-balance font-bold text-stone-300">
+          <div className="w-full max-w-[700px] flex justify-center lg:justify-start relative my-3">
+            <h2 className="text-center uppercase lg:text-start text-4xl md:text-8xl text-balance font-bold text-stone-300">
               Impulsa tu marca con un QR
             </h2>
-            <span className="aparecer-1 absolute left-0 top-0 text-center lg:text-start text-4xl md:text-6xl text-balance font-bold blur-2xl text-stone-300">
+            <span className="aparecer-1 absolute uppercase left-0 top-0 text-center lg:text-start text-4xl md:text-8xl text-balance font-bold blur-2xl text-indigo-300">
               Impulsa tu marca con un QR
             </span>
           </div>
-          <h3 className="text-xl opacity-40"> Genera tu QR de una forma <strong>rápida</strong> y <strong>fácil</strong> </h3>
-          <Link href={'/#QR'} className="w-fit mt-2 py-4 px-6 bg-blue-800 rounded-md cursor-pointer text-2xl hover:rounded-xl duration-100">
+          <h3 className="text-center md:text-start text-xl opacity-40"> Genera tu QR de una forma <strong>rápida</strong> y <strong>sencilla</strong> </h3>
+          <Link href={'/#QR'} className="w-fit mt-2 py-2 md:py-4 px-6 bg-indigo-900 rounded-md cursor-pointer text-xl md:text-2xl hover:rounded-xl duration-100">
             Genera tu QR
           </Link>
         </div>
-        <div className="flex flex-col gap-2 mt-8">
-          <h4 className="text-center sm:text-start text-xl sm:text-lg text-stone-400">¿Por qué tener un QR?</h4>
-          <div className="mt-4 flex justify-center flex-wrap gap-8 xl-gap-12">
-            <div className="relative aparecer-1 w-full max-w-[220px] pl-12 pr-2 py-2 flex flex-col gap-3 rounded-2xl border border-slate-500 bg-zinc-900/30 group">
-              <span className="absolute top-2 left-2 text-6xl opacity-15 group-hover:opacity-30 duration-150">1</span>
-              <p className="text-md xl:text-lg text-stone-500 text-balance group-hover:text-stone-300 duration-150"> Facilitan el acceso inmediato a la información </p>
-              <div className="absolute  bottom-2 right-2 w-3 h-3 rounded-full border border-slate-500 group-hover:bg-zinc-600 duration-300"></div>
-            </div>
-            <div className="relative aparecer-2 w-full max-w-[220px] pl-12 pr-2 py-2 flex flex-col gap-3 rounded-2xl border border-slate-500 bg-zinc-900/30 group">
-              <span className="absolute top-2 left-2 text-6xl opacity-15 group-hover:opacity-30 duration-150">2</span>
-              <p className="text-md xl:text-lg text-stone-500 text-balance group-hover:text-stone-300 duration-150"> Conecta el mundo físico con el mundo digital </p>
-              <div className="absolute  bottom-2 right-2 w-3 h-3 rounded-full border border-slate-500 group-hover:bg-zinc-600 duration-300"></div>
-            </div>
-            <div className="relative aparecer-3 w-full max-w-[220px] pl-12 pr-2 py-2 flex flex-col gap-3 rounded-2xl border border-slate-500 bg-zinc-900/30 group">
-              <span className="absolute top-2 left-2 text-6xl opacity-15 group-hover:opacity-30 duration-150">3</span>
-              <p className="text-md xl:text-lg text-stone-500 text-balance group-hover:text-stone-300 duration-150"> Aumentan las conversiones de marketing !! </p>
-              <div className="absolute  bottom-2 right-2 w-3 h-3 rounded-full border border-slate-500 group-hover:bg-zinc-600 duration-300"></div>
-            </div>
-          </div>
-        </div>
       </div>
-      <picture className="aparecer-4 w-full max-w-[300px] sm:max-w-[400px] xl:max-w-[500px] bg-zinc-900/30 hover:bg-zinc-900/70 duration-250 rounded-4xl">
-        <img src="/qr_ART.png" alt="Ilustración de un QR"/>
-      </picture>
+      <div className="flex items-center justify-center">
+        <picture className="aparecer-4 w-full max-w-[300px] sm:max-w-[400px] xl:max-w-[600px] bg-zinc-300/10 hover:bg-zinc-300/20 duration-250 rounded-4xl">
+          <img src="/qr_ART.png" alt="Ilustración de un QR"/>
+        </picture>
+      </div>
     </section>
 
-    <section className="w-full max-w-[1400px] mx-auto flex flex-col justify-start">
-      <div className="flex flex-col items-center justify-center md:flex-row gap-4">
+    <section className="w-full max-w-9/10 mx-auto py-12 mb-20 flex flex-col lg:flex-row justify-center items-center rounded-2xl gap-12 border-y bg-zinc-300/1 border-indigo-700/50 hover:border-indigo-700/90 duration-300">
+        <div className="w-full max-w-9/10 mx-auto p-8 flex flex-col lg:flex-row justify-center items-center rounded-2xl gap-12 border-y bg-zinc-300/10 border-indigo-700/40 hover:border-indigo-700/90 duration-300">
+          <div className="flex flex-col gap-5 lg:gap-10 mt-8">
+
+            <h4 className="text-center text-3xl lg:text-6xl text-pretty text-stone-200 uppercase">
+              ¿ Por qué tener un QR ?
+            </h4>
+
+            <p className="max-w-9/10 sm:max-w-7/10 text-center mx-auto text-stone-400 text-lg md:text-xl">
+              Los códigos QR se han convertido en una herramienta clave para conectar tu marca con tu público de forma rápida, moderna y efectiva.
+            </p>
+
+
+            <div className="mt-6 flex flex-wrap justify-center items-center gap-3 lg:gap-12">
+
+              <div className="relative aparecer-1 w-full lg:max-w-[300px] pl-12 pr-5 py-3 flex flex-col gap-3 rounded-2xl border border-slate-900 bg-indigo-300/25 hover:scale-[1.02] duration-300 group">
+                <span className="absolute top-2 lg:group-hover:top-4 left-2 text-3xl lg:text-6xl text-stone-300 opacity-20 group-hover:opacity-30 duration-150">1</span>
+                <div className="flex items-center gap-3">
+                  <p className="text-lg md:text-xl text-stone-300 group-hover:text-stone-200 duration-150">
+                    Acceso inmediato a la información
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative aparecer-2 w-full lg:max-w-[300px] pl-12 pr-5 py-3 flex flex-col gap-3 rounded-2xl border border-slate-900 bg-indigo-300/25 hover:scale-[1.02] duration-300 group">
+                <span className="absolute top-2 lg:group-hover:top-4 left-2 text-3xl lg:text-6xl text-stone-300 opacity-20 group-hover:opacity-30 duration-150">2</span>
+                <div className="flex items-center gap-3">
+                  <p className="text-lg md:text-xl text-stone-300 group-hover:text-stone-200 duration-150">
+                    Conecta el mundo físico con el digital
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative aparecer-3 w-full lg:max-w-[300px] pl-12 pr-5 py-3 flex flex-col gap-3 rounded-2xl border border-slate-900 bg-indigo-300/25 hover:scale-[1.02] duration-300 group">
+                <span className="absolute top-2 lg:group-hover:top-4 left-2 text-3xl lg:text-6xl text-stone-300 opacity-20 group-hover:opacity-30 duration-150">3</span>
+                <div className="flex items-center gap-3">
+                  <p className="text-lg md:text-xl text-stone-300 group-hover:text-stone-200 duration-150">
+                    Aumentan las conversiones de marketing
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative aparecer-4 w-full lg:max-w-[300px] pl-12 pr-5 py-3 flex flex-col gap-3 rounded-2xl border border-slate-900 bg-indigo-300/25 hover:scale-[1.02] duration-300 group">
+                <span className="absolute top-2 lg:group-hover:top-4 left-2 text-3xl lg:text-6xl text-stone-300 opacity-20 group-hover:opacity-30 duration-150">4</span>
+                <div className="flex items-center gap-3">
+                  <p className="text-lg md:text-xl text-stone-300 group-hover:text-stone-200 duration-150">
+                    Permiten rastrear estadísticas
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative aparecer-5 w-full lg:max-w-[300px] pl-12 pr-5 py-3 flex flex-col gap-3 rounded-2xl border border-slate-900 bg-indigo-300/25 hover:scale-[1.02] duration-300 group">
+                <span className="absolute top-2 lg:group-hover:top-4 left-2 text-3xl lg:text-6xl text-stone-300 opacity-20 group-hover:opacity-30 duration-150">5</span>
+                <div className="flex items-center gap-3">
+                  <p className="text-lg md:text-xl text-stone-300 group-hover:text-stone-200 duration-150">
+                    Aumentan la confianza y profesionalismo
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative aparecer-6 w-full lg:max-w-[300px] pl-12 pr-5 py-3 flex flex-col gap-3 rounded-2xl border border-slate-900 bg-indigo-300/25 hover:scale-[1.02] duration-300 group">
+                <span className="absolute top-2 lg:group-hover:top-4 left-2 text-3xl lg:text-6xl text-stone-300 opacity-20 group-hover:opacity-30 duration-150">6</span>
+                <div className="flex items-center gap-3">
+                  <p className="text-lg md:text-xl text-stone-300 group-hover:text-stone-200 duration-150">
+                    Podés actualizar la info sin reimprimir
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+    </section>
+
+    <section className="w-full max-w-[1400px] my-24 sm:my-12 mx-auto flex flex-col justify-center items-center">
+      <div className="w-full flex flex-col justify-center items-auto md:flex-row md:justify-center gap-4">
         <form 
           id="QR"
           onChange={ (e) => editForm(e) } 
-          className="aparecer-3 relative mx-2 max-w-85/100 md:max-w-[550px] min-w-[320px] md:mx-none grow px-8 py-4 bg-zinc-900 rounded-xl flex flex-col gap-3 z-3"
+          className="aparecer-3 relative mx-auto md:mx-0 w-full max-w-85/100 md:max-w-[550px] min-w-[320px grow px-8 py-8 
+          bg-zinc-300/10 hover:bg-zinc-300/20 duration-250 rounded-xl flex flex-col gap-3 z-3
+          "
         >
           <div>
             <h2 className="w-fit text-4xl font-bold text-stone-200 border-b"> Genera tu QR </h2>
@@ -211,7 +271,7 @@ export default function Home() {
           <div className="flex flex-col gap-1 group">
             <label htmlFor="url" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Ingresa la URL </label>
             <textarea name="url" id="url" defaultValue={options.data} 
-              className="resize-none line-clamp-2 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300
+              className="resize-none line-clamp-2 px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300
                 h-8 sm:h-auto
               "
             />
@@ -220,17 +280,17 @@ export default function Home() {
             {/*  Editar Ancho  */}
             <div className="grow flex flex-col gap-1 group">
               <label htmlFor="width" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Ancho ( px )</label>
-              <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={400} defaultValue={300} name="width" id="width" type="number"/>
+              <input className="px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={400} defaultValue={300} name="width" id="width" type="number"/>
             </div>
             {/*  Editar Alto  */}
             <div className="grow flex flex-col gap-1 group">
               <label htmlFor="heigth" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Alto ( px )</label>
-              <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={400} defaultValue={300} name="heigth" id="heigth" type="number"/>
+              <input className="px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={400} defaultValue={300} name="heigth" id="heigth" type="number"/>
             </div>
             {/*  Editar Margen  */}
             <div className="grow flex flex-col gap-1 group">
               <label htmlFor="margin" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Margen ( px )</label>
-              <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={50} defaultValue={10} name="margin" id="margin" type="number"/>
+              <input className="px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={50} defaultValue={10} name="margin" id="margin" type="number"/>
             </div>
           </div>
           {/*  Editar Imagen  */}
@@ -250,7 +310,7 @@ export default function Home() {
               Quitar imagen
             </button>
             
-            <span className="block w-full overflow-x-hidden px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300"
+            <span className="block w-full overflow-x-hidden px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300"
               onClick={() => inputFileTarget()  }
             > 
               { imgSelect == null || imgSelect.length < 1  ? "Seleccione una imagen" : imgSelect }
@@ -263,12 +323,12 @@ export default function Home() {
                 {/*  Editar tamaño Imagen  */}
                 <div className="grow flex flex-col gap-1 group">
                   <label htmlFor="img_size" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Tamaño </label>
-                  <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={100} defaultValue={40} name="img_size" id="img_size" type="number"/>
+                  <input className="px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={100} defaultValue={40} name="img_size" id="img_size" type="number"/>
                 </div>
                 {/*  Editar margen Imagen  */}
                 <div className="grow flex flex-col gap-1 group">
                   <label htmlFor="img_margen" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Margen </label>
-                  <input className="px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={40} defaultValue={10} name="img_margen" id="img_margen" type="number"/>
+                  <input className="px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" min={0} max={40} defaultValue={10} name="img_margen" id="img_margen" type="number"/>
                 </div>
               </div>
             </div> 
@@ -279,19 +339,19 @@ export default function Home() {
             <div className="flex flex-wrap justify-between gap-5">
               <div className="grow flex-1 flex flex-col gap-1 group">
                 <label htmlFor="color_a" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Patron </label>
-                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_a" id="color_a" type="color" defaultValue={"#000"}/>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_a" id="color_a" type="color" defaultValue={"#000"}/>
               </div>
               <div className="grow flex-1 flex flex-col gap-1 group">
                 <label htmlFor="color_b" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Fondo </label>
-                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_b" id="color_b" type="color" defaultValue={"#686868"}/>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_b" id="color_b" type="color" defaultValue={"#686868"}/>
               </div>
               <div className="grow flex-1 flex flex-col gap-1 group">
                 <label htmlFor="color_c" className="opacity-50 text-sm text-nowrap group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Interior </label>
-                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_c" id="color_c" type="color" defaultValue={"#000"}/>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_c" id="color_c" type="color" defaultValue={"#000"}/>
               </div>
               <div className="grow flex-1 flex flex-col gap-1 group">
                 <label htmlFor="color_d" className="opacity-50 text-sm text-nowrap group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Exterior</label>
-                <input className="w-full min-h-8 px-4 py-1 bg-stone-300 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_d" id="color_d" type="color" defaultValue={"#000"}/>
+                <input className="w-full min-h-8 px-4 py-1 bg-stone-200 rounded-lg text-stone-900 opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 duration-300" name="color_d" id="color_d" type="color" defaultValue={"#000"}/>
               </div>
             </div>
           </div>
@@ -299,12 +359,12 @@ export default function Home() {
             <button 
               type="button"
               onClick={onDownloadClick}
-              className="w-full py-2 bg-blue-800 rounded-md cursor-pointer text-2xl group hover:rounded-xl duration-100"  
+              className="w-full py-2 bg-indigo-900 border border-stone-600 rounded-md cursor-pointer text-2xl group hover:rounded-xl hover:bg-indigo-800 duration-100"  
             >
-              <span className="opacity-80 group-hover:opacity-100 duration-100"> Descargar </span>
+              <span className="opacity-100 group-hover:opacity-100 duration-100"> Descargar </span>
             </button>
             <select onChange={onExtensionChange} value={fileExt}
-              className="w-32 px-3 py-2 bg-blue-800 cursor-pointer opacity-90 rounded-lg hover:rounded-xl hover:opacity-100 "
+              className="w-32 px-3 py-2 bg-indigo-900 border border-stone-600 cursor-pointer opacity-90 rounded-lg hover:rounded-xl hover:opacity-100 hover:bg-indigo-800"
             >
               <option value="svg">SVG</option>
               <option value="png">PNG</option>
@@ -316,22 +376,22 @@ export default function Home() {
 
         <div
           className="
-            w-full max-w-85/100 md:max-w-[450px]
-            flex items-center justify-center bg-zinc-900/60
-            relative mx-2 px-8 py-6
+            grow max-w-[90%] md:max-w-[450px]
+            flex items-center justify-center bg-indigo-300/25
+            relative mx-auto md:mx-2 px-8 py-6
             rounded-xl
             aparecer-2
             z-1
           "
         >
           <div ref={refa} id="QR_contain" className={`${loading ? "hidden" : ""}`}></div>
-          <div className={`bg-stone-600 w-[300px] h-[300px] animate-pulse z-10 ${loading ? "" : "hidden"}`}></div>  
+          <div className={`bg-indigo-500/50 w-[300px] h-[300px] animate-pulse z-10 ${loading ? "" : "hidden"}`}></div>  
         </div>
       </div>
       <span className="mt-12 text-center text-2xl text-stone-500 opacity-50"> 
         Mira las estadisticas de tus QR 
         <Link 
-          href={"/registro"} 
+          href={"/register"} 
           className="inline-block ml-2 text-stone-200 underline hover:brightness-130 duration-150"
         > 
           registradote aquí🔗

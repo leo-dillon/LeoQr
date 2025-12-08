@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -19,10 +19,11 @@
 html{
   scroll-behavior: smooth;
 }
+
 body {
-  background: var(--background);
+  background: radial-gradient(125% 125% at 50% 10%, #000000 40%, #2b092b 100%);
   color: var(--foreground);
-  font-family: "Roboto";
+  font-family: "Inter";
 }
 .animate-delay-100{
   animation-delay: 100ms;
@@ -46,6 +47,12 @@ body {
 }
 .aparecer-3{
   animation: aparecer .4s ease-in-out forwards;
+}
+.aparecer-4{
+  animation: aparecer .5s ease-in-out forwards;
+}
+.aparecer-5{
+  animation: aparecer .6s ease-in-out forwards;
 }
 @keyframes aparecer {
   0%{
