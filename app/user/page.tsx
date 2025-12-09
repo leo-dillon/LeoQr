@@ -1,13 +1,25 @@
 'use client'
 import { useUser } from "@/context/userContex"
+import { useParams, useRouter } from "next/navigation"
+import { useState } from "react"
+
+type userSection = 'home' | 'myQr' | 'createQR'
 
 export default function User(){
   const { userData } = useUser() 
+  const [ sectionActive, setSectionActive ] = useState<userSection>('home')
+  const router = useRouter()
+
+    const changeSection = (text: userSection) => {
+      setSectionActive(text)
+      router.push(`/user?section=${text}`)
+    }
+
   return (
       <div className="w-full flex flex-col gap-4">
         <section className="w-full box-border pt-12 max-w-9/10 mx-auto flex flex-col items-center">
           <div className="w-full flex justify-center relative">
-            <h3 className="text-center my-16 uppercase lg:text-start text-4xl md:text-8xl text-balance font-bold text-stone-300">
+            <h3 className="aparecer-1 text-center my-16 uppercase lg:text-start text-4xl md:text-8xl text-balance font-bold text-stone-300">
               { userData?.user }
             </h3>
             <span className="aparecer-1 my-16 absolute uppercase text-center lg:text-start text-4xl md:text-8xl text-balance font-bold blur-2xl text-indigo-300 animate-pulse">
@@ -17,11 +29,30 @@ export default function User(){
           <h2 className="text-6xl font-bold text-stone-400"> 
             Bienvenido usuario 
           </h2>
-          <small className="inline-block mt-2 text-stone-500 text-lg hover:text-stone-200 duration-200"> 
+          <small className="aparecer-4 inline-block mt-2 text-stone-500 text-lg"> 
             Dentro de está sección podrás encontrar todos tus QRs y sus estadisticas
           </small>
-          <div>
-
+          <div className="w-full mt-18 flex flex-col gap-2">
+            <div className="flex gap-2 justify-start">
+              <button 
+                onClick={ () => changeSection('home')}
+                className="w-fit mt-2 py-2 px-3 bg-indigo-900 rounded-md cursor-pointer text-md hover:rounded-xl duration-100"
+              > 
+                Tus Qrs 
+              </button>
+              <button 
+                onClick={ () => changeSection('createQR')}
+                className="w-fit mt-2 py-2 px-3 bg-indigo-900 rounded-md cursor-pointer text-md hover:rounded-xl duration-100"
+              > 
+                Crea tu QR 
+              </button>
+            </div>
+            <div className={`aparecer w-full px-4 py-6 border border-indigo-900 rounded-2xl ${(sectionActive)=="home" ? "block" : "hidden"}`}>
+              <p>Tus QR</p>
+            </div>
+            <div className={`aparecer w-full px-4 py-6 border border-indigo-900 rounded-2xl ${(sectionActive)=="createQR" ? "block" : "hidden"}`}>
+              <p>Crea tus QR</p>
+            </div>
           </div>
         </section>
       </div>

@@ -11,19 +11,19 @@ type userContextType = {
 const userContext = createContext<userContextType | null>(null)
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const [ userData, setUserData ] = useState<userPublicData | null>(null)
+  const [ userData, setUserData ] = useState<userPublicData | null>(null)
 
-    const saveUserData = (data: userPublicData | null) => {
-        if(data){
-          sessionStorage.setItem('user', JSON.stringify(data))
-          setUserData(data)
-        }else {
-          sessionStorage.removeItem('user')
-          setUserData(null)
-        }
+  const saveUserData = (data: userPublicData | null) => {
+    if(data){
+      sessionStorage.setItem('user', JSON.stringify(data))
+      setUserData(data)
+    }else {
+      sessionStorage.removeItem('user')
+      setUserData(null)
     }
+  }
 
-    useEffect(() => {
+  useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) {
         const data: userPublicData = {
@@ -36,15 +36,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         saveUserData(null)
       }
     })
-
     return () => listener.subscription.unsubscribe()
   }, [])
 
-    return (
-        <userContext.Provider value={{ saveUserData, userData }}>
-            { children }
-        </userContext.Provider>
-    )
+  return (
+      <userContext.Provider value={{ saveUserData, userData }}>
+          { children }
+      </userContext.Provider>
+  )
 }
 
 export const useUser = () => {
