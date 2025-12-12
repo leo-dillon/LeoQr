@@ -1,6 +1,7 @@
 'use client'
+import { Qr } from "@/components/qr/Qr"
 import { useUser } from "@/context/userContex"
-import { useParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 type userSection = 'home' | 'myQr' | 'createQR'
@@ -9,11 +10,11 @@ export default function User(){
   const { userData } = useUser() 
   const [ sectionActive, setSectionActive ] = useState<userSection>('home')
   const router = useRouter()
-
-    const changeSection = (text: userSection) => {
-      setSectionActive(text)
-      router.push(`/user?section=${text}`)
-    }
+  const changeSection = (text: userSection, id: string = "") => {
+    const idQuery = ( id.length > 0) ? id : ""
+    setSectionActive(text)
+    router.push(`/user${idQuery}?section=${text}`)
+  }
 
   return (
       <div className="w-full flex flex-col gap-4">
@@ -41,17 +42,20 @@ export default function User(){
                 Tus Qrs 
               </button>
               <button 
-                onClick={ () => changeSection('createQR')}
+                onClick={ () => changeSection('createQR', "#QR")}
                 className="w-fit mt-2 py-2 px-3 bg-indigo-900 rounded-md cursor-pointer text-md hover:rounded-xl duration-100"
               > 
                 Crea tu QR 
               </button>
             </div>
-            <div className={`aparecer w-full px-4 py-6 border border-indigo-900 rounded-2xl ${(sectionActive)=="home" ? "block" : "hidden"}`}>
+            <div className={`aparecer-2 w-full px-4 py-6 border border-indigo-900 rounded-2xl ${(sectionActive)=="home" ? "block" : "hidden"}`}>
               <p>Tus QR</p>
             </div>
-            <div className={`aparecer w-full px-4 py-6 border border-indigo-900 rounded-2xl ${(sectionActive)=="createQR" ? "block" : "hidden"}`}>
-              <p>Crea tus QR</p>
+            <div className={`aparecer-2 w-full py-2 px-4 pb-6 border border-indigo-900 rounded-2xl ${(sectionActive)=="createQR" ? "block" : "hidden"}`}>
+              <p className="aparecer-4 inline-block mt-2 text-stone-500 text-lg"> 
+                Crea tu proximo QR              
+              </p>
+              <Qr login={true}  />
             </div>
           </div>
         </section>
