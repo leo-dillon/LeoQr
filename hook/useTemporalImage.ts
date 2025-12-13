@@ -11,7 +11,7 @@ export const useTemporalImage = () => {
             if( success ){
                 return {
                     success: true as const,
-                    data: data,
+                    data: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${data}`,
                     error: null
                 }
             }
