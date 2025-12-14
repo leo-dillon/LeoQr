@@ -1,11 +1,9 @@
 'use client'
-import { useToast } from "@/context/modalContext";
 import { useTemporalImage } from "@/hook/useTemporalImage";
-import { normalizeQR } from "@/utils/normalizeQR";
-import { optimizeImage } from "@/utils/optimazeImage";
-import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DrawType, FileExtension, Options } from "qr-code-styling";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DrawType, Options } from "qr-code-styling";
+import { useEffect, useRef, useState } from "react";
 import { QRForm } from "../form/QRForm";
+import { Spinner } from "../spinner/Spinner";
 
 export const Qr = ({ login=false }) => {
   const [options, setOptions] = useState<Options>({
@@ -39,7 +37,8 @@ export const Qr = ({ login=false }) => {
   });
   const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
   const refa = useRef<HTMLDivElement>(null);
-  const { loading } = useTemporalImage()
+  const { loading, saveTemporalImage } = useTemporalImage() 
+
   
   useEffect(() => {
     if (refa.current) {
@@ -57,7 +56,7 @@ export const Qr = ({ login=false }) => {
 
   return (
     <div className="w-full flex flex-col justify-center items-auto md:flex-row md:justify-center gap-4">
-        <QRForm setOptions={setOptions} options={options} login={login} />
+        <QRForm setOptions={setOptions} options={options} login={login} saveTemporalImage={saveTemporalImage} />
         <div
           className={`
             grow max-w-[90%] md:max-w-[450px]
@@ -68,7 +67,9 @@ export const Qr = ({ login=false }) => {
             z-1`}
         >
           <div ref={refa} id="QR_contain" className={`${loading ? "hidden" : ""}`}></div>
-          <div className={`bg-indigo-500/50 w-[300px] h-[300px] animate-pulse z-10 ${loading ? "" : "hidden"}`}></div>  
+          <div className={`w-[300px] h-[300px] animate-pulse z-10 ${loading ? "" : "hidden"}`}>
+            <Spinner />  
+          </div>  
         </div>
       </div>
   )

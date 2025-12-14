@@ -3,19 +3,18 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react"
 import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, FileExtension, Options } from "qr-code-styling";
 import { normalizeQR } from "@/utils/normalizeQR";
-import { useTemporalImage } from "@/hook/useTemporalImage";
 import { optimizeImage } from "@/utils/optimazeImage";
+import { responsesType } from "@/types/responseType";
 
 type QR_Form_Type = {
+    saveTemporalImage: (img: File) => Promise<responsesType<string>>
     setOptions: (options: Options) => void,
     options: Options,
     login: boolean
 }
 
 
-export const QRForm = ({ setOptions, options, login }: QR_Form_Type) => {
-
-    const { saveTemporalImage } = useTemporalImage() 
+export const QRForm = ({ setOptions, options, login, saveTemporalImage }: QR_Form_Type) => {
 
     const refForm = useRef<HTMLFormElement>(null)
 
@@ -29,16 +28,10 @@ export const QRForm = ({ setOptions, options, login }: QR_Form_Type) => {
     const normalizarImagen = async (img: File) => {
         if( conImagen ){
             if( imagenGuardada == undefined && img.name.length < 1){
-                console.log("A");
-                
                 return process.env.NEXT_PUBLIC_LOGO
             }else if( imagenActual == img.name ){
-                console.log("B");
-                
                 return imagenGuardada
             } else {
-                console.log("C");
-                
                 setImagenActual(img.name)
                 const imagenOptimizada  = await optimizeImage(img)
                 const { success, data }  = await saveTemporalImage(imagenOptimizada)
@@ -171,7 +164,7 @@ export const QRForm = ({ setOptions, options, login }: QR_Form_Type) => {
             {/*  Editar Imagen  */}
             <div className="relative my-2 sm:my-0 grow flex flex-col gap-1 group">
                 <label htmlFor="image" className="opacity-50 text-sm group-hover:opacity-100 group-focus-within:opacity-100 duration-300"> Imagen </label>
-                <input className="hidden" name="image" id="image" type="file" accept="image/png, image/jpeg, image/jpg, image/svg+xml" onClick={() => setConImagen(true)}/>
+                <input className="hidden" name="image" id="image" type="file" accept="image/png, image/jpeg, image/jpg, image/svg+xml" onClick={() => toggleConImagen(true) }/>
 
                 <button
                     type="button"
